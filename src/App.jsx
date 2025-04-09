@@ -26,18 +26,24 @@ export const App = () => {
     newGoods = [...goodsFromServer];
   }
 
-  if (sortField !== '') {
+  function handleSortByLength() {
     newGoods.sort((good1, good2) => {
-      switch (sortField) {
-        case 'alphabetically':
-          return good2.localeCompare(good1);
-        case 'length':
-          return good2.length - good1.length;
-
-        default:
-          return 0;
-      }
+      return good2.length - good1.length;
     });
+  }
+
+  if (sortField === 'length') {
+    handleSortByLength();
+  }
+
+  function handleSortAlphabetically() {
+    newGoods.sort((good1, good2) => {
+      return good2.localeCompare(good1);
+    });
+  }
+
+  if (sortField === 'alphabetically') {
+    handleSortAlphabetically();
   }
 
   if (handleReverse) {
