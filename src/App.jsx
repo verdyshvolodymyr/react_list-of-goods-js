@@ -18,15 +18,15 @@ export const goodsFromServer = [
 export const App = () => {
   const [sortField, setSortField] = useState('');
   let newGoods = [...goodsFromServer];
-  const [isReversed, setIsReversed] = useState(false);
+  const [handleReverse, setHandleReverse] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isVisibleReset, setIsVisibleReset] = useState(false);
+  const [handleReset, setHandleReset] = useState(false);
 
   if (sortField === 'reset') {
     newGoods = [...goodsFromServer];
   }
 
-  if (sortField !== 'reverse' && sortField !== '') {
+  if (sortField !== '') {
     newGoods.sort((good1, good2) => {
       switch (sortField) {
         case 'alphabetically':
@@ -40,7 +40,7 @@ export const App = () => {
     });
   }
 
-  if (isReversed) {
+  if (handleReverse) {
     newGoods.reverse();
   }
 
@@ -50,7 +50,7 @@ export const App = () => {
         <button
           onClick={() => {
             setSortField('alphabetically');
-            setIsVisibleReset(true);
+            setHandleReset(true);
           }}
           type="button"
           className={
@@ -65,7 +65,7 @@ export const App = () => {
         <button
           onClick={() => {
             setSortField('length');
-            setIsVisibleReset(true);
+            setHandleReset(true);
           }}
           type="button"
           className={
@@ -79,11 +79,11 @@ export const App = () => {
 
         <button
           type="button"
-          className={isVisible ? 'button is-info': 'button is-info is-light'}
+          className={isVisible ? 'button is-info' : 'button is-info is-light'}
           onClick={() => {
-            setIsReversed(prev => !prev);
+            setHandleReverse(prev => !prev);
             setIsVisible(prev => !prev);
-            setIsVisibleReset(true);
+            setHandleReset(true);
           }}
         >
           Reverse
@@ -92,12 +92,12 @@ export const App = () => {
         <button
           type="button"
           className="button is-danger is-light"
-          style={isVisibleReset ? { display: 'block' } : { display: 'none' }}
+          style={handleReset ? { display: 'block' } : { display: 'none' }}
           onClick={() => {
             setSortField('reset');
-            setIsVisibleReset(false);
+            setHandleReset(false);
             setIsVisible(false);
-            setIsReversed(false);
+            setHandleReverse(false);
           }}
         >
           Reset
